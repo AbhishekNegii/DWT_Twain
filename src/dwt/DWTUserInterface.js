@@ -174,22 +174,7 @@ export default class DWTUserInterface extends React.Component {
                         />
                     </Suspense>
                 </div>
-                <div style={{ textAlign: "left", position: "relative", float: "left", width: "980px" }} className="fullWidth clearfix">
-                    <DWTOutPut
-                        note={"(Double click or hit 'delete' to clear!)"}
-                        handleEvent={(evt) => this.handleEvent(evt)}
-                        messages={this.state.messages}
-                        bNoScroll={this.state.bNoScroll}
-                    />
-                    <div className="DWT_Notice">
-                        <p><strong>Platform &amp;Browser Support:</strong></p>Chrome|Firefox|Edge on Windows
-                            <p><strong>OCR:</strong> </p> Only English with OCR Basic is demonstrated.<br />
-                            Click &nbsp;
-                            <u><a href='https://www.dynamsoft.com/Products/ocr-basic-languages.aspx'>here</a></u>
-                            &nbsp;for other supported languages and&nbsp;
-                            <u><a href='https://www.dynamsoft.com/Products/cpp-ocr-library.aspx'>here</a></u> for the differences betwen two available OCR engines.
-                    </div>
-                </div>
+                
             </div >
         );
     }

@@ -17,14 +17,6 @@ export default class DWT extends React.Component {
             startTime: (new Date()).getTime(),
             unSupportedEnv: false,
             dwt: null,
-            /** status
-             * 0:  "Initializing..."
-             * 1:  "Core Ready..." (scan)
-             * 2:  "Camera Ready..."
-             * 32: "BarcodeReader Ready..."
-             * 64: "OCR engine Ready..."
-             * 128:"Uploader Ready..."
-             */
             status: this.initialStatus,
             selected: [],
             buffer: {
@@ -42,7 +34,7 @@ export default class DWT extends React.Component {
             }
         };
     }
-    featureSet = { scan: 0b1, camera: 0b10, load: 0b100, save: 0b1000, upload: 0b10000, barcode: 0b100000, ocr: 0b1000000, uploader: 0b10000000 };
+    featureSet = { scan: 0b1, load: 0b100, save: 0b1000, upload: 0b10000, uploader: 0b10000000 };
     features = 0b11111111;
     initialStatus = 0;
     DWObject = null;
@@ -82,7 +74,8 @@ export default class DWT extends React.Component {
     }
     loadDWT(UseService) {
         Dynamsoft.DWT.ResourcesPath = "/dwt-resources";
-		Dynamsoft.DWT.ProductKey = 't00891wAAAEbOWXicCg/1bwa29gTMj4S89ctUTkXBm+c5T4rfmfK+D7o7BxNdhMwAQhsRyqJ3AZfqg+fUDZ+dlQ7IHcOPlAHfBcF6F7iDMkC8gaSmKpbjBOJTLOo=';
+        Dynamsoft.DWT.ProductKey = "t01529gIAABJQodlSg7DoNsIio57pYpH5M88JBmOS3ZLypkk6ooRgwJop9NUvnQpcpB11/XrJ7Hivf0kgE4NoOfb0FPIM7iwbstowBgaXEPaq5JMkw09wDaAdIBfZg3jlC9z0fTuqkABXQAsQ3fgBjkN+esWDkBlwBbQAxyETGHTS/JvkrqCth6Qh4ApoAXrIBJqxNJX5AVdhnh4=";
+
         let innerLoad = (UseService) => {
             this.innerLoadDWT(UseService)
                 .then(
@@ -99,9 +92,7 @@ export default class DWT extends React.Component {
                             });
                             this.DWObject = this.state.dwt;
                             if (this.DWObject) {
-                                /**
-                                 * NOTE: RemoveAll doesn't trigger bitmapchanged nor OnTopImageInTheViewChanged!!
-                                 */
+                                
                                 this.DWObject.RegisterEvent("OnBitmapChanged", (changedIndex, changeType) => this.handleBufferChange(changedIndex, changeType));
                                 this.DWObject.Viewer.on("topPageChanged", (index, bByScrollBar) => { 
 									if (bByScrollBar || this.DWObject.isUsingActiveX()){
